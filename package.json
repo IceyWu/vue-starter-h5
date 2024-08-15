@@ -1,8 +1,11 @@
 {
-  "name": "v3-cli-starter",
-  "type": "module",
-  "version": "0.1.0",
-  "private": true,
+  "name": "vue-starter-h5",
+  "version": "0.0.1",
+  "description": "cli + vue3 + js 开箱即用现代H5开发模板",
+  "author": "IceyWu <https://github.com/IceyWu/>",
+  "repository": {
+    "url": "https://github.com/IceyWu/vue-starter-h5"
+  },
   "scripts": {
     "dev": "vue-cli-service serve",
     "serve": "vue-cli-service serve",

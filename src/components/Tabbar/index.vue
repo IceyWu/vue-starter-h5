@@ -5,7 +5,6 @@ const active = ref(0)
 const tabbarData = reactive([
   {
     icon: 'wap-home-o',
-    a: '1',
     title: '列表',
     icon: 'i-carbon-text-align-justify',
     to: {

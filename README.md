@@ -10,9 +10,9 @@ vue-starter-h5 <b>cli + v3 +js</b><sup><em>(speed)</em></sup><br>
 
 <br>
 
-<!-- <p align='center'>
+<p align='center'>
 <a href="https://vue-starter-h5.netlify.app/">Live Demo</a>
-</p> -->
+</p>
 
 <br>
 
