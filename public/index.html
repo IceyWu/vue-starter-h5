@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="">
   <head>
     <meta charset="utf-8" />
@@ -13,9 +13,8 @@
   <body>
     <noscript>
       <strong
-        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
-        properly without JavaScript enabled. Please enable it to
-        continue.</strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please
+        enable it to continue.</strong
       >
     </noscript>
     <div id="app">
@@ -40,10 +39,9 @@
           width: 68px;
           height: 68px;
           background-color: #1989fa;
-          animation: cube-shadow-spinner 1.8s cubic-bezier(0.75, 0, 0.5, 1)
-            infinite;
+          animation: cube-shadow-spinner 1.8s cubic-bezier(0.75, 0, 0.5, 1) infinite;
         }
-        .__spinner-text{
+        .__spinner-text {
           margin-top: 20px;
           font-size: 16px;
           color: #1989fa;
@@ -64,16 +62,12 @@
       </div>
     </div>
     <script>
-      (function () {
-        var src = "//cdn.jsdelivr.net/npm/eruda";
-        if (
-          !/eruda=true/.test(window.location) &&
-          localStorage.getItem("active-eruda") != "true"
-        )
-          return;
-        document.write("<scr" + 'ipt src="' + src + '"></scr' + "ipt>");
-        document.write("<scr" + "ipt>eruda.init();</scr" + "ipt>");
-      })();
+      ;(function () {
+        var src = '//cdn.jsdelivr.net/npm/eruda'
+        if (!/eruda=true/.test(window.location) && localStorage.getItem('active-eruda') != 'true') return
+        document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>')
+        document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>')
+      })()
     </script>
   </body>
 </html>

@@ -1,43 +1,8 @@
-<template>
-  <div class="skeleton-list" :style="[skeletonListStyle]">
-    <van-skeleton
-      v-for="(item, index) in skeletonNum"
-      :style="[skeletonItemStyle]"
-      class="skeleton-item bg-gray-200 dark:bg-gray-800"
-      :key="index"
-      :loading="loading"
-    >
-      <template #template>
-        <slot>
-          <template v-if="type == 'classAlbum'">
-            <SkeClassAlbum />
-          </template>
-          <template v-else-if="type == 'cloudAlbum'">
-            <SkeCloudAlbum />
-          </template>
-          <template v-else-if="type == 'timeLine'">
-            <SkeTimeLine />
-          </template>
-          <template v-else>
-            <div class="flex flex-col w-full">
-              <van-skeleton-paragraph v-if="title" row-width="60%" />
-              <van-skeleton-paragraph
-                v-for="(item, index) in rows"
-                :key="index"
-              />
-            </div>
-          </template>
-        </slot>
-      </template>
-    </van-skeleton>
-  </div>
-</template>
-
 <script setup>
-import SkeClassAlbum from "./classAlbum.vue";
-import SkeCloudAlbum from "./CloudAlbum.vue";
-import SkeTimeLine from "./TimeLine.vue";
-const emit = defineEmits(["update:isShow", "func"]);
+import SkeClassAlbum from './classAlbum.vue'
+import SkeCloudAlbum from './CloudAlbum.vue'
+import SkeTimeLine from './TimeLine.vue'
+
 const props = defineProps({
   isShow: {
     type: Boolean,
@@ -89,43 +54,81 @@ const props = defineProps({
   },
   type: {
     type: String,
-    default: "classAlbum",
+    default: 'classAlbum',
   },
-});
-onMounted(() => {});
+})
+const emit = defineEmits(['update:isShow', 'func'])
+onMounted(() => {})
 // function
-const func = () => {
-  emit("func");
-};
+function func() {
+  emit('func')
+}
 // function-update
-const funcUpdate = () => {
-  emit("update:isShow", false);
-};
+function funcUpdate() {
+  emit('update:isShow', false)
+}
 
 //
 const skeletonNum = computed(() => {
-  return new Array(props.num);
-});
+  return new Array(props.num)
+})
 
 const skeletonListStyle = computed(() => {
-  if (!props.loading) return {};
+  if (!props.loading)
+return {}
   return {
     gridTemplateColumns: `repeat(${props.gridCol}, 1fr)`,
     gridColumnGap: `${props.columnGap}px`,
     gridRowGap: `${props.rowGap}px`,
     padding: `${props.paddingY}px ${props.paddingX}px`,
     paddingBottom: `${props.paddingBottom}px`,
-  };
-});
+  }
+})
 
 const skeletonItemStyle = computed(() => {
-  if (!props.loading) return {};
+  if (!props.loading)
+return {}
   return {
     // height: `${props.rows * props.rowsHeight}px`,
     padding: `15px`,
-  };
-});
+  }
+})
 </script>
+
+<template>
+  <div class="skeleton-list" :style="[skeletonListStyle]">
+    <van-skeleton
+      v-for="(item, index) in skeletonNum"
+      :key="index"
+      :style="[skeletonItemStyle]"
+      class="skeleton-item bg-gray-200 dark:bg-gray-800"
+      :loading="loading"
+    >
+      <template #template>
+        <slot>
+          <template v-if="type === 'classAlbum'">
+            <SkeClassAlbum />
+          </template>
+          <template v-else-if="type === 'cloudAlbum'">
+            <SkeCloudAlbum />
+          </template>
+          <template v-else-if="type === 'timeLine'">
+            <SkeTimeLine />
+          </template>
+          <template v-else>
+            <div class="w-full flex flex-col">
+              <van-skeleton-paragraph v-if="title" row-width="60%" />
+              <van-skeleton-paragraph
+                v-for="(item, index) in rows"
+                :key="index"
+              />
+            </div>
+          </template>
+        </slot>
+      </template>
+    </van-skeleton>
+  </div>
+</template>
 
 <style lang="less" scoped>
 .skeleton-list {
@@ -136,7 +139,7 @@ const skeletonItemStyle = computed(() => {
   // grid-column-gap: 10rpx;
   // grid-row-gap: 10rpx;
   .skeleton-item {
-   // background: #fff;
+    // background: #fff;
     border-radius: 10px;
     // padding: 10rpx;
   }

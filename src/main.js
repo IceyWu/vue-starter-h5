@@ -1,12 +1,13 @@
-import "./public-path";
-import { createApp } from "vue";
-import App from "./App.vue";
+import './public-path'
+import { createApp } from 'vue'
+import { setToastDefaultOptions } from 'vant'
+import App from './App.vue'
 // unocss
-import "uno.css";
+import 'uno.css'
 // normalize.css
-import "normalize.css/normalize.css";
+import 'normalize.css/normalize.css'
 // 全局样式
-import "./styles/index.less";
+import './styles/index.less'
 // tailwindcss
 // import "./styles/tailwind.css";
 // svg icon
@@ -14,19 +15,18 @@ import "./styles/index.less";
 // other
 
 // vant
-import "vant/lib/index.css";
-import "vant/es/toast/style";
-import "vant/es/dialog/style";
-import "vant/es/notify/style";
-import "vant/es/image-preview/style";
+import 'vant/lib/index.css'
+import 'vant/es/toast/style'
+import 'vant/es/dialog/style'
+import 'vant/es/notify/style'
+import 'vant/es/image-preview/style'
 
-import router from "./router";
-import { store } from "./store";
-import { setToastDefaultOptions } from "vant";
+import router from './router'
+import { store } from './store'
 
-setToastDefaultOptions({ teleport: "#sh-app" });
+setToastDefaultOptions({ teleport: '#sh-app' })
 
-const app = createApp(App);
-app.use(store);
-app.use(router);
-app.mount("#app");
+const app = createApp(App)
+app.use(store)
+app.use(router)
+app.mount('#app')

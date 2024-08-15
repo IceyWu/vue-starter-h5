@@ -1,18 +1,18 @@
 import { createApp } from 'vue'
 import Dialog from '@/components/Dialog/filePreview.vue'
 
-const createDialogApp = () => {
+function createDialogApp() {
   return createApp(Dialog)
-};
+}
 
-const showDialog = (options) => {
-  const app = createDialogApp(); // 每次都创建一个新的app实例
+function showDialog(options) {
+  const app = createDialogApp() // 每次都创建一个新的app实例
   return new Promise((resolve, reject) => {
     const instance = app.mount(document.createElement('div'))
     document.body.appendChild(instance.$el)
-    console.log('instance',instance)
+    console.log('instance', instance)
     // 设置标题、内容、类型等属性
-    console.log('🌳-----options-----', options);
+    console.log('🌳-----options-----', options)
     instance.data = options.data || {}
     // instance.content = options.content || ''
     // instance.type = options.type || 'info'
@@ -30,7 +30,7 @@ const showDialog = (options) => {
     //   // document.body.removeChild(instance.$el)
     // }
     // 打开提示框
-    console.log('🍪-----instance-----', instance);
+    console.log('🍪-----instance-----', instance)
     instance.open(options.data)
   })
 }

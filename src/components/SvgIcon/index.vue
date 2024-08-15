@@ -1,34 +1,35 @@
-<script setup >
-import { isExternal } from "@/utils/validate";
-import { computed } from "vue";
+<script setup>
+import { computed } from 'vue'
+import { isExternal } from '@/utils/validate'
 
 const props = defineProps({
   name: {
     type: String,
-    default: ""
+    default: '',
   },
   className: {
     type: String,
-    default: ""
-  }
-});
+    default: '',
+  },
+})
 
-const isExternalIcon = computed(() => isExternal(props.name));
-const iconName = computed(() => `#icon-${props.name}`);
+const isExternalIcon = computed(() => isExternal(props.name))
+const iconName = computed(() => `#icon-${props.name}`)
 const svgClass = computed(() => {
   if (props.className) {
-    return "svg-icon " + props.className;
-  } else {
-    return "svg-icon";
+    return `svg-icon ${props.className}`
   }
-});
+ else {
+    return 'svg-icon'
+  }
+})
 // 外链 icon
 const styleExternalIcon = computed(() => {
   return {
     mask: `url(${props.name}) no-repeat 50% 50%`,
-    "-webkit-mask": `url(${props.name}) no-repeat 50% 50%`
-  };
-});
+    '-webkit-mask': `url(${props.name}) no-repeat 50% 50%`,
+  }
+})
 </script>
 
 <template>

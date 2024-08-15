@@ -1,27 +1,26 @@
-import { http } from "@/utils/http";
-
+import { http } from '@/utils/http'
 
 // 获取Userinfo信息
-export const getUserInfo = (params) => {
+export function getUserInfo(params) {
   return http.request(
-    "get",
-    "/web/userinfo",
+    'get',
+    '/web/userinfo',
     { params },
     {
       isNeedToken: true, // 是否需要token
       isNeedEncrypt: true, // 是否需要token
-    }
-  );
-};
+    },
+  )
+}
 // body测试
-export const testWebBody = (data) => {
+export function testWebBody(data) {
   return http.request(
-    "post",
-    "/web/save",
+    'post',
+    '/web/save',
     { data },
     {
       isNeedToken: true, // 是否需要token
       isNeedEncrypt: true, // 是否需要token
-    }
-  );
-};
+    },
+  )
+}

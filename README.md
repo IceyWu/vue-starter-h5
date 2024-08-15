@@ -39,15 +39,13 @@ vue-starter-h5 <b>cli + v3 +js</b><sup><em>(speed)</em></sup><br>
 - 🦾 [API](./src/api) - a simple wrapper for [axios]
 
 - 🎨 [Vant](https://github.com/vant-ui/vant#readme) - Mobile UI Components built on Vue
-<br>
+  <br>
 
 ## 🐟 Show
 
 <p align="center">
 <img src="./public/show.gif" style="width:100%;"  />
 </p>
-
-
 
 ### Development
 

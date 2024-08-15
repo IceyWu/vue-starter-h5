@@ -1,36 +1,36 @@
-import { http } from "@/utils/http";
+import { http } from '@/utils/http'
 // 文件检查
-export const fileCheck = (data) => {
+export function fileCheck(data) {
   return http.request(
-    "post",
-    "/common/file/check",
+    'post',
+    '/common/file/check',
     { data },
-    { isNeedToken: true, isNeedEncrypt: false }
-  );
-};
+    { isNeedToken: true, isNeedEncrypt: false },
+  )
+}
 // 上传文件
-export const fileUpload = (data) => {
+export function fileUpload(data) {
   return http.request(
-    "post",
-    "/common/file/upload",
+    'post',
+    '/common/file/upload',
     { data },
-    { isNeedToken: true, isNeedEncrypt: false }
-  );
-};
+    { isNeedToken: true, isNeedEncrypt: false },
+  )
+}
 
 /** 上传预览文件 */
-export const uploadPreviewFile = (data) => {
-  return http.request("post", "/common/file/filePreview", { data });
-};
+export function uploadPreviewFile(data) {
+  return http.request('post', '/common/file/filePreview', { data })
+}
 /** 获取预览文件地址 */
-export const getFileFullPath = (params) => {
-  return http.request("get", "/common/file/fullPath", { params });
-};
+export function getFileFullPath(params) {
+  return http.request('get', '/common/file/fullPath', { params })
+}
 
 /** 上传预览文件V2 */
-export const uploadPreviewFileV2 = (data) => {
-  return http.request("post", "/common/file/v2/filePreview", { data });
-};
+export function uploadPreviewFileV2(data) {
+  return http.request('post', '/common/file/v2/filePreview', { data })
+}
 
 // new------->
 /**
@@ -38,28 +38,28 @@ export const uploadPreviewFileV2 = (data) => {
  * @param identifier 文件md5
  * @returns {Promise<AxiosResponse<any>>}
  */
-export const taskInfo = (identifier) => {
+export function taskInfo(identifier) {
   return http.request(
-    "get",
+    'get',
     `/minio/tasks/${identifier}`,
     {},
-    { isNeedToken: false }
-  );
-};
+    { isNeedToken: false },
+  )
+}
 /**
  * 获取预签名分片上传地址
  * @param identifier 文件md5
  * @param partNumber 分片编号
  * @returns {Promise<AxiosResponse<any>>}
  */
-export const preSignUrl = ({ identifier, partNumber }) => {
+export function preSignUrl({ identifier, partNumber }) {
   return http.request(
-    "get",
+    'get',
     `/minio/tasks/${identifier}/${partNumber}`,
     {},
-    { isNeedToken: false }
-  );
-};
+    { isNeedToken: false },
+  )
+}
 
 /**
  * 初始化一个分片上传任务
@@ -69,19 +69,19 @@ export const preSignUrl = ({ identifier, partNumber }) => {
  * @param chunkSize 分块大小
  * @returns {Promise<AxiosResponse<any>>}
  */
-export const initTask = (data) => {
-  return http.request("post", "/minio/tasks", { data }, { isNeedToken: false });
-};
+export function initTask(data) {
+  return http.request('post', '/minio/tasks', { data }, { isNeedToken: false })
+}
 /**
  * 合并分片
  * @param identifier
  * @returns {Promise<AxiosResponse<any>>}
  */
-export const merge = (identifier) => {
+export function merge(identifier) {
   return http.request(
-    "post",
+    'post',
     `/minio/tasks/merge/${identifier}`,
     {},
-    { isNeedToken: false }
-  );
-};
+    { isNeedToken: false },
+  )
+}

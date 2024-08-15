@@ -1,31 +1,32 @@
 <script setup>
-import { useToggleDarkMode } from "@/hooks/useToggleDarkMode";
+import { useToggleDarkMode } from '@/hooks/useToggleDarkMode'
+
 const props = defineProps({
   title: {
     type: String,
-    default: "",
+    default: '',
   },
   showBack: {
     type: Boolean,
     default: false,
   },
-});
+})
 
-const onClickRight = () => {
-  useToggleDarkMode();
-};
-const router = useRouter();
-const onClickLeft = () => {
+function onClickRight() {
+  useToggleDarkMode()
+}
+const router = useRouter()
+function onClickLeft() {
   if (props.showBack) {
-    router.back();
+    router.back()
   }
-};
+}
 </script>
 
 <template>
   <van-nav-bar
-    fixed
-    placeholder
+
+     placeholder fixed
     :title="title"
     @click-left="onClickLeft"
     @click-right="onClickRight"
@@ -34,7 +35,7 @@ const onClickLeft = () => {
       <van-icon name="arrow-left" size="20" />
     </template>
     <template #right>
-      <div icon-btn dark:i-carbon-moon i-carbon-sun title="Change Theme" />
+      <div i-carbon-sun dark:i-carbon-moon icon-btn title="Change Theme" />
     </template>
   </van-nav-bar>
 </template>

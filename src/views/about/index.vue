@@ -1,9 +1,27 @@
+<script setup>
+import { useErudaStore } from '@/store/modules/eruda'
+
+const erudaStore = useErudaStore()
+const { activeNum, activeEruda } = storeToRefs(erudaStore)
+const showTitle = computed(() => {
+  return activeEruda.value ? '关闭调试' : `开启调试${activeNum.value}`
+})
+
+function handleErudaClick() {
+  if (activeEruda.value) {
+    erudaStore.closeEruda()
+    return
+  }
+  erudaStore.addActiveNum()
+}
+</script>
+
 <template>
   <div>
     <img
       class="user-poster"
       src="https://img.yzcdn.cn/public_files/2017/10/23/8690bb321356070e0b8c4404d087f8fd.png"
-    />
+    >
     <van-row class="user-links">
       <van-col span="6">
         <van-icon name="pending-payment" />
@@ -40,24 +58,6 @@
     </van-cell-group>
   </div>
 </template>
-
-<script setup>
-import { useErudaStore } from "@/store/modules/eruda";
-const erudaStore = useErudaStore();
-const { activeNum, activeEruda } = storeToRefs(erudaStore);
-const showTitle = computed(() => {
-  return activeEruda.value ? "关闭调试" : `开启调试${activeNum.value}`;
-});
-
-const handleErudaClick = () => {
-  if (activeEruda.value) {
-    erudaStore.closeEruda();
-    return;
-  }
-  erudaStore.addActiveNum();
-  
-};
-</script>
 
 <style lang="less">
 .user {

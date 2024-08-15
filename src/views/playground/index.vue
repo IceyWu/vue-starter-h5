@@ -1,81 +1,83 @@
 <script setup>
-import { closeToast, showLoadingToast } from "vant";
-import { uploadFile } from "@/utils/upload";
+import { closeToast, showLoadingToast } from 'vant'
+import { uploadFile } from '@/utils/upload'
 
 // 校验函数可以返回 Promise，实现异步校验
-const asyncValidator = (val) =>
-  new Promise((resolve) => {
-    showLoadingToast("验证中...");
+function asyncValidator(val) {
+  return new Promise((resolve) => {
+    showLoadingToast('验证中...')
 
     setTimeout(() => {
-      closeToast();
-      resolve(val === "1234");
-    }, 1000);
-  });
+      closeToast()
+      resolve(val === '1234')
+    }, 1000)
+  })
+}
 
-const onFailed = (errorInfo) => {
-  console.log("failed", errorInfo);
-};
+function onFailed(errorInfo) {
+  console.log('failed', errorInfo)
+}
 
 const formRules = {
   // 手机号
   phone: [
     {
       required: true,
-      message: "请输入手机号",
+      message: '请输入手机号',
     },
     {
       pattern: /^1\d{10}$/,
-      message: "手机号格式错误",
+      message: '手机号格式错误',
     },
   ],
   // 必填
   required: [
     {
       required: true,
-      message: "请输入内容",
+      message: '请输入内容',
     },
   ],
-};
+}
 
 const formValues = reactive({
-  phone: "",
+  phone: '',
   switch: true,
   checkBox: true,
-  checkboxGroup: ["1"],
-  radio: "1",
+  checkboxGroup: ['1'],
+  radio: '1',
   stepper: 1,
   rate: 3,
   slider: 50,
-  uploader: [{ url: "https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg" }],
-});
-const beforeRead = (file) => {
-  console.log("🌳-----file-----", file);
+  uploader: [{ url: 'https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg' }],
+})
+function beforeRead(file) {
+  console.log('🌳-----file-----', file)
   uploadFile(file, {}, (pro) => {
-    console.log("🌳-----pro-----", pro);
+    console.log('🌳-----pro-----', pro)
   })
     .then((res) => {
-      console.log("🌳-----res-----", res);
+      console.log('🌳-----res-----', res)
       const addInfo = {
         ...res,
         url: res.url,
-      };
-      formValues.uploader.push(addInfo);
+      }
+      formValues.uploader.push(addInfo)
     })
     .catch((err) => {
-      console.log("🌳-----err-----", err);
-    });
-};
-const beforeDelete = (arg, info) => {
-  console.log("🌵-----beforeDelete-----", arg, info);
-  const { name, index } = info;
+      console.log('🌳-----err-----', err)
+    })
+}
+function beforeDelete(arg, info) {
+  console.log('🌵-----beforeDelete-----', arg, info)
+  const { name, index } = info
   if (index > -1) {
-    console.log("🐠-----formValues-----", formValues);
-    return true;
-  } else {
-    return false;
+    console.log('🐠-----formValues-----', formValues)
+    return true
   }
-};
+ else {
+    return false
+  }
+}
 </script>
 
 <template>
@@ -83,8 +85,8 @@ const beforeDelete = (arg, info) => {
     <van-cell-group inset>
       <!-- 通过 pattern 进行正则校验 -->
       <van-field
-        label="手机号"
         v-model="formValues.phone"
+        label="手机号"
         name="pattern"
         placeholder="请输入手机号"
         :rules="formRules.phone"
@@ -149,7 +151,7 @@ const beforeDelete = (arg, info) => {
             :before-delete="beforeDelete"
           >
             <template #preview-cover="{ file }">
-              <div class="preview-cover van-ellipsis">{{ file?.fileName || '' }}</div>
+              <div class="van-ellipsis preview-cover">{{ file?.fileName || '' }}</div>
             </template>
           </van-uploader>
         </template>
