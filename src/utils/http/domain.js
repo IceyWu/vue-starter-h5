@@ -4,6 +4,11 @@
  * @param {string} otherServer [其他服务器]
  */
 const domainLsit = [
+  // 开发
+  {
+    baseServer: 'http://10.0.30.150:8740', // 开发服务 0
+    otherServer: 'http://x.x.x.x/section', // 开发服务器 1
+  },
   // 测试服
   {
     baseServer: 'http://10.0.30.150:8740', // 开发服务 0

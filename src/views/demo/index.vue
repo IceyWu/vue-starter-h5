@@ -179,7 +179,7 @@ onMounted(() => {
       @on-refresh="onRefresh"
       @on-load="onLoad"
     >
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col space-y-2">
         <div
           v-for="(item, index) in listObj.list"
           :ref="setRef"

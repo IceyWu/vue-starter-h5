@@ -55,4 +55,10 @@ import {
     //   transformerDirectives(),
     //   transformerVariantGroup(),
     // ],
+    theme: {
+      colors: {
+        bg_color: 'var(--van-background)',
+        primary: 'var(--van-primary-color)',
+      },
+    },
   })
