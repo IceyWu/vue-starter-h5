@@ -12,7 +12,7 @@ const cachedViews = computed(() => {
 </script>
 
 <template>
-  <div class="app-wrapper">
+  <div class="app-wrapper" id="sh-app">
     <van-config-provider
       :theme-vars="themeVars"
       theme-vars-scope="global"

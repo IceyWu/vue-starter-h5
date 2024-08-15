@@ -5,20 +5,17 @@ import { secretKey } from "@/config/sign";
 
 function generateUUID(num = 32) {
   return uuidv4();
-  const chars =
-    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split("");
-  const uuid = [];
-  let i;
-  num = num || 32;
-  for (i = 0; i < num; i++) uuid[i] = chars[0 | (Math.random() * 62)];
-  return uuid.join("");
 }
 export const encrypt = (data = {}) => {
   const ttData = JSON.parse(JSON.stringify(data));
+
   for (let key in data) {
-    if (Array.isArray(data[key])) {
+    if ( data[key] instanceof Object) {
       data[key] = JSON.stringify(data[key]);
     }
+    // if (Array.isArray(data[key])) {
+    //   data[key] = JSON.stringify(data[key]);
+    // }
   }
   let tempData = {};
   const timestamp = new Date().getTime();
@@ -40,6 +37,7 @@ export const encrypt = (data = {}) => {
   }
   // 在拼接secretKey
   signStr += `key=${secretKey}`;
+
   const sign = md5(signStr);
   tempData = {
     ...baseData,

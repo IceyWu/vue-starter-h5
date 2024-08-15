@@ -28,7 +28,7 @@ export const apiPost = (data) => {
 export const getLogin = (data) => {
   return http.request(
     "post",
-    "/teacher/teacher/login",
+    "/app/user/login",
     { data },
     {
       isNeedToken: false, // 是否需要token

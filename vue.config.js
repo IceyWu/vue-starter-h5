@@ -11,6 +11,9 @@ module.exports = function () {
       client: {
         overlay: false,
       },
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
     },
     configureWebpack: {
       devtool: "inline-source-map",

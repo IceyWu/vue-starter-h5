@@ -82,9 +82,9 @@ export const useDateFormat = (time, format) => {
 };
 /** 时间处理 */
 export const formatTimeBefore = (time) => {
-    if (!time) return "";
-    return dayjs(time).fromNow().replace(" ", "");
-  };
+  if (!time) return "";
+  return dayjs(time).fromNow().replace(" ", "");
+};
 // 文件下载
 export function downloadFile(url, fileName = "未知文件") {
   const link = document.createElement("a");
@@ -135,6 +135,24 @@ export function getFileType(url) {
 export function getChangedData(oldData, newData) {
   return compareObjects(oldData, newData);
 }
+// 与基座进行数据交互
+export const handleMicroData = () => {
+  let res = null;
+  // 是否是微前端环境
+  console.log(
+    "-----------基座对象window------",
+    window.__MICRO_APP_ENVIRONMENT__
+  );
+  if (window.__MICRO_APP_ENVIRONMENT__) {
+    // 主动获取基座下发的数据
+    if (window.microApp) {
+      const data = window.microApp.getData();
+      res = data;
+    }
+  }
+  console.log("----------微前端window.microApp---------", res);
+  return res;
+};
 
 export default {
   getLocalStorage,

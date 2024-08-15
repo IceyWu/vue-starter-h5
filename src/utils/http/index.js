@@ -5,6 +5,8 @@ import { setToken, getToken, formatToken } from "@/utils/auth";
 import { showToast } from "vant";
 // import { useUserStore } from "@/store/user";
 import { encrypt } from "@/utils/auth/sign";
+import router from "@/router";
+import { isEmpty } from "@iceywu/utils";
 
 const defaultConfig = {
   // baseURL: VITE_PROXY_DOMAIN_REAL,
@@ -86,6 +88,7 @@ class PureHttp {
           tokenRoleName = "",
           serverName = "",
           isNeedEncrypt = true,
+          headers = {},
         } = config;
         PureHttp.isNeedToken = isNeedToken;
         PureHttp.isShowLoading = isShowLoading;
@@ -100,6 +103,12 @@ class PureHttp {
         }
         if (serverName) {
           config.baseURL = apiServer[serverName] || apiServer["baseServer"];
+        }
+        // header信息
+        if (!isEmpty(headers)) {
+          Object.keys(headers).forEach((key) => {
+            config.headers.set(key, headers[key]);
+          });
         }
         // 参数处理
         if (isNeedEncrypt) {
@@ -182,6 +191,14 @@ class PureHttp {
         }
 
         const { code } = response.data;
+        const tokenErrorCodes = [11012, 11014];
+        if (tokenErrorCodes.includes(code)) {
+          PureHttp.isApiError = true;
+          showToast("登录异常，请重新登录");
+          setTimeout(() => {
+            router.replace("/auth");
+          }, 1000);
+        }
         // 业务异常code名单
         if (PureHttp.errorCodes.includes(code)) {
           PureHttp.isApiError = true;

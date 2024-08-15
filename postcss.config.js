@@ -4,7 +4,7 @@ module.exports = ({ file }) => {
   let filename = { file }.file;
   const designWidth = filename.includes(path.join("node_modules", "vant"))
     ? 375
-    : 375;
+    : 750;
   return {
     plugins: {
       // 使用 cnjm-postcss-px-to-viewport 规避 postcss.plugin was deprecated 警告

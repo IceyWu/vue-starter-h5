@@ -10,13 +10,18 @@ import {
 export const useUserStore = defineStore(
   "user",
   () => {
+    // 基座用户信息
+    const micUserInfo = ref({});
     // 用户信息
     const userInfo = ref({});
 
-    const countdown = ref(0); //验证码倒计时
     // 设置用户信息
     const setUserInfo = (info) => {
       userInfo.value = info;
+    };
+    // 设置基座用户信息
+    const setMicUserInfo = (info) => {
+      micUserInfo.value = info;
     };
 
     /** 后台登入 */
@@ -25,19 +30,18 @@ export const useUserStore = defineStore(
         getLogin(dataT)
           .then((res) => {
             const { code, data } = res;
-
             if (code === 200) {
-              const { teacher, token } = data;
+              const { user, token } = data;
               const TokenInfo = {
-                id: teacher.id,
-                username: teacher.username,
-                name: teacher.name,
-                roles: teacher.positions,
+                id: user.id,
+                username: user.name,
+                name: user.name,
+                roles: user.positions,
                 accessToken: token[AccessTokenKey],
                 expires: token[ExpiresKey],
               };
               setToken(TokenInfo);
-              userInfo.value = teacher;
+              userInfo.value = user;
 
               resolve(res);
             } else {
@@ -68,10 +72,10 @@ export const useUserStore = defineStore(
 
     return {
       userInfo,
-
+      micUserInfo,
       setUserInfo,
+      setMicUserInfo,
       handLogin,
-
       outlogin,
     };
   },

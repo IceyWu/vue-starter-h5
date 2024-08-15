@@ -1,5 +1,5 @@
 <template>
-  <!-- <div class="empty-box-l">
+  <div class="empty-box-l">
     <div :class="imgClass ? imgClass : 'empty-img'">
       <van-image width="100%" height="100%" :src="imgSrc"></van-image>
     </div>
@@ -14,11 +14,12 @@
     <div class="empty-btn" v-if="isNeedAddBtn" @click="addFunc">
       {{ btnText }}
     </div>
-  </div> -->
-  <van-empty image="search" :image-size="imgSize" :description="description" />
+  </div>
+  <!-- <van-empty image="search" :image-size="imgSize" :description="description" /> -->
 </template>
 
 <script setup>
+import ImgEmpty1 from "@/assets/empty/success.png";
 const emit = defineEmits(["addClick"]);
 const props = defineProps({
   // 文案
@@ -52,6 +53,19 @@ const props = defineProps({
     type: String,
     default: null,
   },
+});
+
+// 图片
+const imgSrc = computed(() => {
+  if (props.imgType == "1") {
+    return ImgEmpty1;
+  } else if (props.imgType == "2") {
+    return ImgEmpty2;
+  } else if (props.imgType == "3") {
+    return ImgEmpty3;
+  } else if (props.imgType == "4") {
+    return ImgEmpty4;
+  }
 });
 
 const addFunc = () => {

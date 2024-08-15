@@ -1,3 +1,4 @@
+import "./public-path";
 import { createApp } from "vue";
 import App from "./App.vue";
 // unocss
@@ -12,17 +13,18 @@ import "./styles/index.less";
 // import "virtual:svg-icons-register";
 // other
 
-// vant 
-import 'vant/es/toast/style';
-import 'vant/es/dialog/style';
-import 'vant/es/notify/style';
-import 'vant/es/image-preview/style';
-
+// vant
+import "vant/lib/index.css";
+import "vant/es/toast/style";
+import "vant/es/dialog/style";
+import "vant/es/notify/style";
+import "vant/es/image-preview/style";
 
 import router from "./router";
 import { store } from "./store";
+import { setToastDefaultOptions } from "vant";
 
-
+setToastDefaultOptions({ teleport: "#sh-app" });
 
 const app = createApp(App);
 app.use(store);
