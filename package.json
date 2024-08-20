@@ -26,6 +26,7 @@
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.12",
     "encryptlong": "^3.1.4",
+    "eruda": "^3.2.3",
     "js-cookie": "^3.0.5",
     "js-md5": "^0.8.3",
     "lodash": "^4.17.21",
