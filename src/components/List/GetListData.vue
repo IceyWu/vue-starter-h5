@@ -167,7 +167,7 @@ function emptyBtnClick() {
           <div
             v-show="listObj.loading"
             class="my-3 box-border"
-            :style="{ paddingTop: `${SkeletonPTop}px` }"
+            :style="{ paddingTop: `${skeletonPTop}px` }"
           >
             <Skeleton :loading="listObj.loading" v-bind="skeletonObj" />
           </div>
