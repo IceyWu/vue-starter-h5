@@ -23,7 +23,7 @@ import 'vant/es/image-preview/style'
 
 import router from './router'
 import { store } from './store'
-import { initEruda, destroyEruda } from "@/utils/eruda";
+import { destroyEruda, initEruda } from '@/utils/eruda'
 
 setToastDefaultOptions({ teleport: '#sh-app' })
 
@@ -32,11 +32,10 @@ app.use(store)
 app.use(router)
 app.mount('#app')
 
-initEruda();
+initEruda()
 
 // 监听卸载操作
-window.addEventListener("unmount", function () {
-    destroyEruda();
-    app.unmount();
-});
-  
+window.addEventListener('unmount', () => {
+    destroyEruda()
+    app.unmount()
+})

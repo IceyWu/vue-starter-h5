@@ -1,16 +1,16 @@
-import eruda from "eruda";
+import eruda from 'eruda'
 
 // eruda 初始化
-export const initEruda = () => {
-  const activeEruda = localStorage.getItem("active-eruda");
-  if (activeEruda === "true") {
-    eruda.init();
+export function initEruda() {
+  const activeEruda = localStorage.getItem('active-eruda')
+  if (activeEruda === 'true') {
+    eruda.init()
   }
-};
+}
 
 // eruda 销毁
-export const destroyEruda = () => {
+export function destroyEruda() {
   if (eruda) {
-    eruda?.destroy();
+    eruda?.destroy()
   }
-};
+}
