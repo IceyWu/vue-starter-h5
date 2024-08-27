@@ -24,3 +24,15 @@ export function testWebBody(data) {
     },
   )
 }
+// body测试-err
+export function getApiError(data) {
+  return http.request(
+    'post',
+    '/web/save1',
+    { data },
+    {
+      isNeedToken: true, // 是否需要token
+      isNeedEncrypt: true, // 是否需要token
+    },
+  )
+}
