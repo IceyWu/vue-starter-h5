@@ -14,7 +14,7 @@ const {
   search,
 } = useRequest(requestListApi, {
   target: 'list',
-  // loadingDelay: 300,
+  loadingDelay: 300,
   getVal: (res) => {
     const list = getObjVal(res, 'result.content', [])
     return list

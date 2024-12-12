@@ -62,7 +62,7 @@ function refresh() {
 // 是否展示空数据
 const isShowEmptyData = computed(() => {
   return (
-    listObj.value?.list?.length === 0 && !listObj.value.loading && props.isNeedEmpty
+    listObj.value?.list?.length === 0 && !listObj.value.loading && props.isNeedEmpty && !listObj.value.refreshing
   )
 })
 </script>
