@@ -1,105 +1,40 @@
 <script setup>
+import { getObjVal, list } from '@iceywu/utils'
 import { createReusableTemplate } from '@vueuse/core'
+import { useRequest } from 'vue-hooks-pure'
 
 const [DefineTemplate, ReuseTemplate] = createReusableTemplate()
-// 列表对象
-const listObj = ref({
-  list: [],
-  loading: false,
-  finished: false,
-  refreshing: false,
+async function requestListApi(params) {
+  return getTestApi(params)
+}
+const {
+  onRefresh,
+  onLoad,
+  result: listObj,
+  search,
+} = useRequest(requestListApi, {
+  target: 'list',
+  // loadingDelay: 300,
+  getVal: (res) => {
+    const list = getObjVal(res, 'result.content', [])
+    return list
+  },
+  listOptions: {
+    defaultPageKey: 'page',
+    defaultSizeKey: 'size',
+    defaultDataKey: 'list',
+    defaultPage: -1,
+    getTotal: (data) => {
+      const total = getObjVal(data, 'result.total', 0)
+      return total
+    },
+  },
 })
-const paramsObj = reactive({
-  page: -1,
-  size: 30,
-  sort: 'createdAt,desc',
-})
-// 数据初始化
-function initData() {
-  listObj.value.page = -1
-  listObj.value.finished = false
-  listObj.value.refreshing = false
-  listObj.value.list = []
-  paramsObj.page = -1
-}
 
-function onLoad(isReload = false) {
-  console.log('-----onLoad-----')
-  if (listObj.value.loading || listObj.value.finished)
-return
-  const totalNum = listObj.value.list.length || 0
-  if (isReload && totalNum > 0) {
-    getData(listObj.value.list.length)
-  }
- else {
-    paramsObj.page++
-    getData()
-  }
-}
-function onRefresh(isReload = false) {
-  console.log('-----onRefresh-----')
-  if (!isReload) {
-    // 参数重置
-    initData()
-    // 初始化状态
-    listObj.value.refreshing = true
-  }
- else {
-    listObj.value.loading = false
-    listObj.value.finished = false
-  }
-  onLoad(isReload)
-}
-async function getData(reloadSize) {
-  console.log('🐠-----reloadSize-----', reloadSize)
-  // 加载状态
-  listObj.value.loading = true
-
-  const params = {
-    page: paramsObj.page,
-    size: paramsObj.size,
-    sort: paramsObj.sort,
-    maxPage: 4,
-  }
-  if (reloadSize) {
-    params.page = 0
-    params.size = reloadSize
-  }
-  const [err, resData] = await to(getTestApi(params))
-  if (err) {
-    console.log('🍭-----err-----', err)
-  }
-  const { code, msg, data } = resData || {}
-  if (listObj.value.refreshing) {
-    listObj.value.list = []
-    listObj.value.refreshing = false
-  }
-  if (code === 200 && data) {
-    console.log('查询成功', data)
-    const { content = [], last = false } = data || {}
-    if (reloadSize) {
-      listObj.value.list = content
-    }
- else {
-      listObj.value.list = listObj.value.list.concat(content)
-    }
-    listObj.value.finished = last
-    if (listObj.value.finished) {
-      console.log('-----加载完毕-----')
-    }
-    // 填充数据
-  }
- else {
-    console.log('查询失败', msg)
-    listObj.value.finished = true
-  }
-  // 加载状态停止
-  listObj.value.loading = false
-}
 // 模拟api
 async function getTestApi(params) {
   await sleep(500)
-  const { page, size, maxPage = 3 } = params
+  const { page = 0, size = 10, maxPage = 3 } = params
   const baseSize = page * size
   const data = list(0, size - 1, (index) => {
     const element = baseSize + index
@@ -113,9 +48,10 @@ async function getTestApi(params) {
   return {
     code: 200,
     msg: '查询成功',
-    data: {
+    result: {
       content: data,
       last: page + 1 === maxPage,
+      total: 100,
     },
   }
 }
@@ -127,8 +63,6 @@ function setRef(el) {
 }
 function scrollToAnchor() {
   const index = 5
-  // console.log("🍪-----scrollToAnchor-----", eleRefs.value);
-  // eleRefs.value[index].scrollIntoView({ block: "start", behavior: "smooth" });
   const x = 0
   const y = eleRefs.value[index].offsetTop
   window.scrollTo({ top: y, left: x, behavior: 'smooth' })
@@ -136,16 +70,18 @@ function scrollToAnchor() {
 const router = useRouter()
 const offset = ref({ y: 400 })
 function handleItemClick(item) {
-  // console.log("🍪-----handleItemClick-----", item);
   router.push(`/demo/detail/${item.id}`)
-  // router.push(`/detail/${item.id}`);
 }
 onActivated(() => {
-  console.log('🎉-----onActivated-----')
-  onRefresh(true)
+  if (listObj.value?.list?.length > 0) {
+    onRefresh(true)
+  }
 })
 onMounted(() => {
-  console.log('🎉-----onMounted-----')
+  search.value = {
+    name: 'iceywu',
+  }
+  onRefresh()
 })
 </script>
 
@@ -165,11 +101,8 @@ onMounted(() => {
     </van-floating-bubble>
 
     <GetListData
-      v-model:listObj="listObj"
-      :is-need-add-btn="false"
-      :immediate-check="true"
-      is-need-skeleton
-      is-need-finished-text
+      v-model="listObj"
+      :immediate-check="false"
       :skeleton-obj="{
         num: 2,
         gridCol: 1,
