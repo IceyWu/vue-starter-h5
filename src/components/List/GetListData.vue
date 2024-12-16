@@ -69,19 +69,13 @@ const isShowEmptyData = computed(() => {
 
 <template>
   <component
-    :is="isDisabledRefresh ? 'div' : PullRefresh"
-    v-model="listObj.refreshing"
-    :disabled="isDisabledRefresh"
-    class="refresh-box !overflow-visible"
-    @refresh="refresh"
-  >
+:is="isDisabledRefresh ? 'div' : PullRefresh" v-model="listObj.refreshing" :disabled="isDisabledRefresh"
+    class="refresh-box !overflow-visible" @refresh="refresh"
+>
     <van-list
-      :finished="listObj.finished"
-      :loading="listObj.loading"
-      :disabled="disableList"
-      v-bind="vanListProps"
+:finished="listObj.finished" :loading="listObj.loading" :disabled="disableList" v-bind="vanListProps"
       @load="load"
-    >
+>
       <slot />
       <template #loading>
         <!-- 骨架屏 -->
@@ -108,9 +102,14 @@ const isShowEmptyData = computed(() => {
   // padding-top: 364px;
   // padding-bottom: 364px;
 }
+
 .refresh-box {
   width: 100%;
   overflow: visible !important;
   // background: red;
+}
+
+:deep(.van-pull-refresh__head) {
+  z-index: -1 !important;
 }
 </style>
